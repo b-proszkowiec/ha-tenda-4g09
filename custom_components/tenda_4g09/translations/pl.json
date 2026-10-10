@@ -1,0 +1,78 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tenda 4G09",
+
+        "description": "Wprowadź dane połączenia z routerem Tenda 4G09.",
+
+        "data": {
+          "host": "Adres IP routera",
+
+          "username": "Nazwa użytkownika",
+
+          "password": "Hasło"
+        }
+      }
+    },
+
+    "error": {
+      "cannot_connect": "Nie można połączyć się z routerem.",
+
+      "invalid_auth": "Nieprawidłowa nazwa użytkownika lub hasło."
+    },
+
+    "abort": {
+      "already_configured": "Ten router jest już skonfigurowany."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "wan_ip": {
+        "name": "Adres IP WAN"
+      },
+      "lan_ip": {
+        "name": "Adres IP LAN"
+      },
+      "lan_mac": {
+        "name": "Adres MAC LAN"
+      },
+      "rssi": {
+        "name": "Moc sygnału"
+      },
+      "connection_type": {
+        "name": "Typ połączenia"
+      },
+      "internet_status": {
+        "name": "Status Internetu"
+      },
+      "sim_status": {
+        "name": "Status karty SIM"
+      },
+      "connected_clients": {
+        "name": "Połączeni klienci"
+      },
+      "work_mode": {
+        "name": "Tryb pracy"
+      },
+      "device_name": {
+        "name": "Nazwa urządzenia"
+      },
+
+      "download_speed": {
+        "name": "Prędkość pobierania"
+      },
+      "upload_speed": {
+        "name": "Prędkość wysyłania"
+      },
+      "total_used_mb": {
+        "name": "Wykorzystanie danych"
+      }
+    },
+    "binary_sensor": {
+      "wan_connected": {
+        "name": "Połączenie WAN"
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@
         "name": "LAN MAC address"
       },
       "rssi": {
-        "name": "LTE signal strength (RSSI)"
+        "name": "Signal strength"
       },
       "connection_type": {
         "name": "Connection type"
