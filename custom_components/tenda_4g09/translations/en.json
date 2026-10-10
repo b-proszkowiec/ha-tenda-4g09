@@ -18,5 +18,53 @@
     "abort": {
       "already_configured": "This router is already configured."
     }
+  },
+  "entity": {
+    "sensor": {
+      "wan_ip": {
+        "name": "WAN IP address"
+      },
+      "lan_ip": {
+        "name": "LAN IP address"
+      },
+      "lan_mac": {
+        "name": "LAN MAC address"
+      },
+      "rssi": {
+        "name": "LTE signal strength (RSSI)"
+      },
+      "connection_type": {
+        "name": "Connection type"
+      },
+      "internet_status": {
+        "name": "Internet status"
+      },
+      "sim_status": {
+        "name": "SIM card status"
+      },
+      "connected_clients": {
+        "name": "Connected clients"
+      },
+      "work_mode": {
+        "name": "Operating mode"
+      },
+      "device_name": {
+        "name": "Device name"
+      },
+      "download_speed": {
+        "name": "Download speed"
+      },
+      "upload_speed": {
+        "name": "Upload speed"
+      },
+      "total_used_mb": {
+        "name": "Total data usage"
+      }
+    },
+    "binary_sensor": {
+      "wan_connected": {
+        "name": "WAN connection"
+      }
+    }
   }
 }

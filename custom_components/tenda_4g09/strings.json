@@ -1,17 +1,37 @@
 {
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tenda 4G09",
+        "description": "Enter the connection details for your Tenda 4G09 router.",
+        "data": {
+          "host": "Router IP address",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the router.",
+      "invalid_auth": "Invalid username or password."
+    },
+    "abort": {
+      "already_configured": "This router is already configured."
+    }
+  },
   "entity": {
     "sensor": {
       "wan_ip": {
-        "name": "WAN IP"
+        "name": "WAN IP address"
       },
       "lan_ip": {
-        "name": "LAN IP"
+        "name": "LAN IP address"
       },
       "lan_mac": {
-        "name": "LAN MAC"
+        "name": "LAN MAC address"
       },
       "rssi": {
-        "name": "LTE RSSI"
+        "name": "LTE signal strength (RSSI)"
       },
       "connection_type": {
         "name": "Connection type"
@@ -20,22 +40,16 @@
         "name": "Internet status"
       },
       "sim_status": {
-        "name": "SIM status"
+        "name": "SIM card status"
       },
       "connected_clients": {
         "name": "Connected clients"
       },
       "work_mode": {
-        "name": "Work mode"
+        "name": "Operating mode"
       },
       "device_name": {
         "name": "Device name"
-      },
-      "country_code": {
-        "name": "Country code"
-      },
-      "ap_status": {
-        "name": "AP status"
       },
       "download_speed": {
         "name": "Download speed"
@@ -44,7 +58,12 @@
         "name": "Upload speed"
       },
       "total_used_mb": {
-        "name": "Total usage"
+        "name": "Total data usage"
+      }
+    },
+    "binary_sensor": {
+      "wan_connected": {
+        "name": "WAN connection"
       }
     }
   }

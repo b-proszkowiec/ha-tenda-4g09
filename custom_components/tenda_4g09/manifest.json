@@ -1,7 +1,7 @@
 {
   "domain": "tenda_4g09",
   "name": "Tenda 4G09",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "documentation": "https://github.com/b-proszkowiec/ha-tenda-4g09",
   "requirements": ["tenda-4g09-client==0.2.2"],
   "codeowners": ["@b-proszkowiec"],
