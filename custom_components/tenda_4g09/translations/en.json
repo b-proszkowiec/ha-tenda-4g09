@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tenda 4G09",
+        "description": "Enter the connection details for your Tenda 4G09 router.",
+        "data": {
+          "host": "Router IP address",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the router.",
+      "invalid_auth": "Invalid username or password."
+    },
+    "abort": {
+      "already_configured": "This router is already configured."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "entity": {
+    "sensor": {
+      "wan_ip": {
+        "name": "WAN IP"
+      },
+      "lan_ip": {
+        "name": "LAN IP"
+      },
+      "lan_mac": {
+        "name": "LAN MAC"
+      },
+      "rssi": {
+        "name": "LTE RSSI"
+      },
+      "connection_type": {
+        "name": "Connection type"
+      },
+      "internet_status": {
+        "name": "Internet status"
+      },
+      "sim_status": {
+        "name": "SIM status"
+      },
+      "connected_clients": {
+        "name": "Connected clients"
+      },
+      "work_mode": {
+        "name": "Work mode"
+      },
+      "device_name": {
+        "name": "Device name"
+      },
+      "country_code": {
+        "name": "Country code"
+      },
+      "ap_status": {
+        "name": "AP status"
+      },
+      "download_speed": {
+        "name": "Download speed"
+      },
+      "upload_speed": {
+        "name": "Upload speed"
+      },
+      "total_used_mb": {
+        "name": "Total usage"
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+reconnect:
+  name: Reconnect WAN
+  description: Reconnect the LTE WAN connection of the Tenda 4G09 router.
