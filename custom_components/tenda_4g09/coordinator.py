@@ -91,7 +91,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             wan_connected: bool = self.client.is_mobile_data_connected(router_status)
             data_limit: DataLimitSetting = self.client.get_data_limit_setting()
             online_clients: list[OnlineClient] = self.client.get_online_clients()
-            serving_cell_info: LTEServingCell  = self.client.get_telnet_client(self.client.host).get_signal_info()
+            serving_cell_info: LTEServingCell  = self.client.get_telnet_client(self.client.host_ip).get_signal_info()
 
 
             if not wan_connected and self._should_reconnect():
