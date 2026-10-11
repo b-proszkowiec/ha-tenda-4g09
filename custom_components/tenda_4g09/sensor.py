@@ -168,7 +168,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     ),
     TendaSensorEntityDescription(
         key="earfcn",
-        translation_key="earfcn",
+        name="EARFCN",
         value_fn=lambda data: get_serving_cell_info(data).earfcn,
     ),
     TendaSensorEntityDescription(
@@ -178,7 +178,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     ),
     TendaSensorEntityDescription(
         key="rsrp",
-        translation_key="rsrp",
+        name="RSRP",
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -186,7 +186,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     ),
         TendaSensorEntityDescription(
         key="rsrq",
-        translation_key="rsrq",
+        name="RSRQ",
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -194,7 +194,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     ),
         TendaSensorEntityDescription(
         key="rssi",
-        translation_key="rssi",
+        name="RSSI",
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -202,7 +202,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     ),
         TendaSensorEntityDescription(
         key="sinr",
-        translation_key="sinr",
+        name="SINR",
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,

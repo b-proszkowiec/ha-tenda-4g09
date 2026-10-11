@@ -78,23 +78,8 @@
       "pci": {
         "name": "Physical Cell ID"
       },
-      "earfcn": {
-        "name": "EARFCN"
-      },
       "band": {
         "name": "LTE Band"
-      },
-      "rsrp": {
-        "name": "Reference Signal Received Power"
-      },
-      "rsrq": {
-        "name": "Reference Signal Received Quality"
-      },
-      "rssi": {
-        "name": "Received Signal Strength Indicator"
-      },
-      "sinr": {
-        "name": "Signal-to-Interference-plus-Noise Ratio"
       }
     },
     "binary_sensor": {

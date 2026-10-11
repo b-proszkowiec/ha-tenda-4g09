@@ -86,23 +86,8 @@
       "pci": {
         "name": "Fizyczny identyfikator komórki"
       },
-      "earfcn": {
-        "name": "Numer kanału radiowego LTE (EARFCN)"
-      },
       "band": {
         "name": "Pasmo LTE"
-      },
-      "rsrp": {
-        "name": "Moc sygnału referencyjnego (RSRP)"
-      },
-      "rsrq": {
-        "name": "Jakość sygnału referencyjnego (RSRQ)"
-      },
-      "rssi": {
-        "name": "Wskaźnik siły odbieranego sygnału (RSSI)"
-      },
-      "sinr": {
-        "name": "Stosunek sygnału do zakłóceń i szumu (SINR)"
       }
     },
     "binary_sensor": {
