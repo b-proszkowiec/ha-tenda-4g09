@@ -30,8 +30,8 @@
       "lan_mac": {
         "name": "LAN MAC address"
       },
-      "rssi": {
-        "name": "LTE signal strength (RSSI)"
+      "signal_index": {
+        "name": "Signal strength"
       },
       "connection_type": {
         "name": "Connection type"
@@ -59,6 +59,42 @@
       },
       "total_used_mb": {
         "name": "Total data usage"
+      },
+      "rat": {
+        "name": "Radio Access Technology"
+      },
+      "duplex": {
+        "name": "Duplex Mode"
+      },
+      "mcc": {
+        "name": "Mobile Country Code"
+      },
+      "mnc": {
+        "name": "Mobile Network Code"
+      },
+      "cell_id": {
+        "name": "Cell ID"
+      },
+      "pci": {
+        "name": "Physical Cell ID"
+      },
+      "earfcn": {
+        "name": "EARFCN"
+      },
+      "band": {
+        "name": "LTE Band"
+      },
+      "rsrp": {
+        "name": "Reference Signal Received Power"
+      },
+      "rsrq": {
+        "name": "Reference Signal Received Quality"
+      },
+      "rssi": {
+        "name": "Received Signal Strength Indicator"
+      },
+      "sinr": {
+        "name": "Signal-to-Interference-plus-Noise Ratio"
       }
     },
     "binary_sensor": {

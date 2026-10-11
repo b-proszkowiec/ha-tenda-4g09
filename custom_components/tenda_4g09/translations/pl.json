@@ -37,7 +37,7 @@
       "lan_mac": {
         "name": "Adres MAC LAN"
       },
-      "rssi": {
+      "signal_index": {
         "name": "Moc sygnału"
       },
       "connection_type": {
@@ -67,6 +67,42 @@
       },
       "total_used_mb": {
         "name": "Wykorzystanie danych"
+      },
+      "rat": {
+        "name": "Technologia dostępu radiowego"
+      },
+      "duplex": {
+        "name": "Tryb dupleksu"
+      },
+      "mcc": {
+        "name": "Kod kraju sieci komórkowej"
+      },
+      "mnc": {
+        "name": "Kod operatora sieci komórkowej"
+      },
+      "cell_id": {
+        "name": "Identyfikator komórki"
+      },
+      "pci": {
+        "name": "Fizyczny identyfikator komórki"
+      },
+      "earfcn": {
+        "name": "Numer kanału radiowego LTE (EARFCN)"
+      },
+      "band": {
+        "name": "Pasmo LTE"
+      },
+      "rsrp": {
+        "name": "Moc sygnału referencyjnego (RSRP)"
+      },
+      "rsrq": {
+        "name": "Jakość sygnału referencyjnego (RSRQ)"
+      },
+      "rssi": {
+        "name": "Wskaźnik siły odbieranego sygnału (RSSI)"
+      },
+      "sinr": {
+        "name": "Stosunek sygnału do zakłóceń i szumu (SINR)"
       }
     },
     "binary_sensor": {

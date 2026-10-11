@@ -73,8 +73,8 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         value_fn=lambda data: get_router_status(data).lan_mac,
     ),
     TendaSensorEntityDescription(
-        key="rssi",
-        translation_key="rssi",
+        key="signal_index",
+        translation_key="signal_index",
         value_fn=lambda data: get_router_status(data).sim_info.rssi,
         state_class=SensorStateClass.MEASUREMENT,
     ),
