@@ -17,7 +17,6 @@ from tenda_4g09 import Tenda4G09
 from .const import (
     CONF_HOST,
     CONF_PASSWORD,
-    CONF_USERNAME,
     DOMAIN,
     SERVICE_RECONNECT,
 )
@@ -92,9 +91,8 @@ async def async_setup_entry(
     """Set up Tenda 4G09 from a config entry."""
 
     client = Tenda4G09(
-        host=entry.data[CONF_HOST],
-        username=entry.data[CONF_USERNAME],
-        password=entry.data[CONF_PASSWORD],
+        entry.data[CONF_HOST],
+        entry.data[CONF_PASSWORD],
     )
 
     coordinator = TendaCoordinator(

@@ -14,8 +14,6 @@ from tenda_4g09 import Tenda4G09
 from .const import (
     CONF_HOST,
     CONF_PASSWORD,
-    CONF_USERNAME,
-    DEFAULT_USERNAME,
     DOMAIN,
 )
 
@@ -27,9 +25,8 @@ async def _validate_input(
     """Validate the connection to the router."""
 
     client = Tenda4G09(
-        host=user_input[CONF_HOST],
-        username=user_input[CONF_USERNAME],
-        password=user_input[CONF_PASSWORD],
+        user_input[CONF_HOST],
+        user_input[CONF_PASSWORD],
     )
 
     try:
@@ -99,11 +96,6 @@ class Tenda4G09ConfigFlow(
             {
                 vol.Required(
                     CONF_HOST
-                ): str,
-
-                vol.Required(
-                    CONF_USERNAME,
-                    default=DEFAULT_USERNAME,
                 ): str,
 
                 vol.Required(

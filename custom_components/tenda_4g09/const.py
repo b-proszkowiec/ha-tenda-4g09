@@ -5,10 +5,8 @@ from typing import Final
 DOMAIN: Final = "tenda_4g09"
 
 CONF_HOST: Final = "host"
-CONF_USERNAME: Final = "username"
 CONF_PASSWORD: Final = "password"
 
-DEFAULT_USERNAME: Final = "admin"
 DEFAULT_SCAN_INTERVAL: Final = 30
 
 SERVICE_RECONNECT: Final = "reconnect"
