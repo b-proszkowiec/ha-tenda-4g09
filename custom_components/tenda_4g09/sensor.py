@@ -45,6 +45,9 @@ def get_connected_clients(data: object) -> list[dict]:
         for device in clients
     ]
 
+def get_serving_cell_info(data: object) -> LTEServingCell:
+    return data.serving_cell_info
+
 @dataclass(frozen=True, kw_only=True)
 class TendaSensorEntityDescription(SensorEntityDescription):
     """Describe a Tenda 4G09 sensor."""
@@ -132,6 +135,66 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.TOTAL_INCREASING,
+    ),
+    TendaSensorEntityDescription(
+        key="rat",
+        translation_key="rat",
+        value_fn=lambda data: get_serving_cell_info(data).rat,
+    ),
+    TendaSensorEntityDescription(
+        key="duplex",
+        translation_key="duplex",
+        value_fn=lambda data: get_serving_cell_info(data).duplex,
+    ),
+    TendaSensorEntityDescription(
+        key="mcc",
+        translation_key="mcc",
+        value_fn=lambda data: get_serving_cell_info(data).mcc,
+    ),
+    TendaSensorEntityDescription(
+        key="mnc",
+        translation_key="mnc",
+        value_fn=lambda data: get_serving_cell_info(data).mnc,
+    ),
+    TendaSensorEntityDescription(
+        key="cell_id",
+        translation_key="cell_id",
+        value_fn=lambda data: get_serving_cell_info(data).cell_id,
+    ),
+    TendaSensorEntityDescription(
+        key="pci",
+        translation_key="pci",
+        value_fn=lambda data: get_serving_cell_info(data).pci,
+    ),
+    TendaSensorEntityDescription(
+        key="earfcn",
+        translation_key="earfcn",
+        value_fn=lambda data: get_serving_cell_info(data).earfcn,
+    ),
+    TendaSensorEntityDescription(
+        key="band",
+        translation_key="band",
+        value_fn=lambda data: get_serving_cell_info(data).band,
+    ),
+    TendaSensorEntityDescription(
+        key="rsrp",
+        translation_key="rsrp",
+        value_fn=lambda data: get_serving_cell_info(data).rsrp,
+    ),
+        TendaSensorEntityDescription(
+        key="rsrq",
+        translation_key="rsrq",
+        value_fn=lambda data: get_serving_cell_info(data).rsrq,
+    ),
+        TendaSensorEntityDescription(
+        key="rssi",
+        translation_key="rssi",
+        value_fn=lambda data: get_serving_cell_info(data).rssi,
+    ),
+        TendaSensorEntityDescription(
+        key="sinr",
+        translation_key="sinr",
+        value_fn=lambda data: get_serving_cell_info(data).sinr,
     ),
 )
 

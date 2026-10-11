@@ -29,6 +29,7 @@ class TendaData:
     data_limit: DataLimitSetting
     wan_connected: bool
     online_clients: list[OnlineClient]
+    serving_cell_info: LTEServingCell
 
 
 class TendaCoordinator(DataUpdateCoordinator[TendaData]):
@@ -90,6 +91,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             wan_connected: bool = self.client.is_mobile_data_connected(router_status)
             data_limit: DataLimitSetting = self.client.get_data_limit_setting()
             online_clients: list[OnlineClient] = self.client.get_online_clients()
+            serving_cell_info: LTEServingCell  = self.client.get_telnet_client(self.client.host).get_signal_info()
 
 
             if not wan_connected and self._should_reconnect():
@@ -114,6 +116,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             wan_connected=wan_connected,
             data_limit=data_limit,
             online_clients=online_clients,
+            serving_cell_info=serving_cell_info,
         )
 
     async def async_reconnect(self) -> None:
