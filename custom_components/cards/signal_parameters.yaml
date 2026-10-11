@@ -1,0 +1,99 @@
+type: markdown
+title: 📡 Urządzenia w sieci
+content: >
+  {% set devices = state_attr('sensor.tenda_4g09_polaczeni_klienci', 'devices')
+  or [] %}
+
+
+  <div style="text-align:center; margin-bottom:12px;">
+    <span style="font-size:28px; font-weight:bold;">
+      {{ devices | count }}
+    </span>
+    <span style="opacity:0.7;">
+      urządzeń online
+    </span>
+  </div>
+
+
+  {% if devices %}
+
+
+  {% for device in devices %}
+
+
+  <div style="
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background: rgba(127,127,127,0.10);
+  ">
+
+
+  <div style="font-size: 17px; font-weight: bold; background:
+  var(--error-color)">
+
+  {% if 'TV' in device.name | upper %}
+    {% set mark = "📺" %}
+  {% elif 'DESKTOP' in device.name | upper or 'PC' in device.name | upper %}
+    {% set mark = "🖥️" %}
+  {% elif 'HOMEASSISTANT' in device.name | upper %}
+    {% set mark = "🏠" %}
+  {% elif 'PHONE' in device.name | upper or 'IPHONE' in device.name | upper %}
+      {% set mark = "📱" %}
+  {% elif 'RE605' in device.name | upper %}
+    {% set mark = "📡" %}
+  {% else %}
+    {% set mark = "💻" %}
+  {% endif %}
+    
+  {{ mark }} {{ device.name }} ({{ device.ip }} / {{ device.mac }} )
+    
+  </div>
+
+
+  <div style="font-size:13px; opacity:0.7; margin-top:4px;">
+    <span>⬆️ {{ device.upload_speed }}</span>
+    <span>⬇️ {{ device.download_speed }}</span>
+  </div>
+
+
+
+  {% if device.guest == "true" %}
+
+  <div style="margin-top:6px; font-size:12px;">
+
+  👤 Sieć gościnna
+
+  </div>
+
+  {% endif %}
+
+
+  {% if device.blocked == "true" %}
+
+  <div style="margin-top:6px; font-size:12px;">
+
+  🚫 Zablokowane
+
+  </div>
+
+  {% endif %}
+
+
+  </div>
+
+
+  {% endfor %}
+
+
+  {% else %}
+
+
+  <div style="text-align:center; padding:20px; opacity:0.6;">
+
+  📭 Brak podłączonych urządzeń
+
+  </div>
+
+
+  {% endif %}
