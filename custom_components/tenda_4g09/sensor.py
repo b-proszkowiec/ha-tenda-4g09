@@ -13,7 +13,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfDataRate, UnitOfInformation
+from homeassistant.const import UnitOfDataRate, UnitOfInformation, SIGNAL_STRENGTH_DECIBELS, SIGNAL_STRENGTH_DECIBELS_MILLIWATT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -75,7 +75,7 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     TendaSensorEntityDescription(
         key="signal_index",
         translation_key="signal_index",
-        value_fn=lambda data: get_router_status(data).sim_info.rssi,
+        value_fn=lambda data: get_router_status(data).sim_info.rssi.value,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     TendaSensorEntityDescription(
@@ -179,21 +179,33 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     TendaSensorEntityDescription(
         key="rsrp",
         translation_key="rsrp",
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         value_fn=lambda data: get_serving_cell_info(data).rsrp,
     ),
         TendaSensorEntityDescription(
         key="rsrq",
         translation_key="rsrq",
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         value_fn=lambda data: get_serving_cell_info(data).rsrq,
     ),
         TendaSensorEntityDescription(
         key="rssi",
         translation_key="rssi",
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         value_fn=lambda data: get_serving_cell_info(data).rssi,
     ),
         TendaSensorEntityDescription(
         key="sinr",
         translation_key="sinr",
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
+        state_class=SensorStateClass.MEASUREMENT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         value_fn=lambda data: get_serving_cell_info(data).sinr,
     ),
 )
