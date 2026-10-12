@@ -8,10 +8,8 @@
 
         "data": {
           "host": "Adres IP routera",
-
-          "username": "Nazwa użytkownika",
-
-          "password": "Hasło"
+          "password": "Hasło",
+          "scan_interval": "Refresh interval (seconds)"
         }
       }
     },

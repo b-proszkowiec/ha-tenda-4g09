@@ -6,6 +6,7 @@ from typing import Any
 
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import selector
 from homeassistant.exceptions import HomeAssistantError
 import voluptuous as vol
 
@@ -14,6 +15,8 @@ from tenda_4g09 import Tenda4G09
 from .const import (
     CONF_HOST,
     CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    DEFAULT_SCAN_INTERVAL,
     DOMAIN,
 )
 
@@ -26,6 +29,7 @@ async def _validate_input(
 
     client = Tenda4G09(
         user_input[CONF_HOST],
+        # scan_interval=user_input[CONF_SCAN_INTERVAL],
         user_input[CONF_PASSWORD],
     )
 
@@ -97,6 +101,17 @@ class Tenda4G09ConfigFlow(
                 vol.Required(
                     CONF_HOST
                 ): str,
+
+                vol.Required(
+                    CONF_SCAN_INTERVAL,
+                    default=DEFAULT_SCAN_INTERVAL,
+                ): selector.NumberSelector(
+                    selector.NumberSelectorConfig(
+                        min=5,
+                        step=1,
+                        mode=selector.NumberSelectorMode.BOX,
+                    )
+                ),
 
                 vol.Required(
                     CONF_PASSWORD

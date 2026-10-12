@@ -18,8 +18,6 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(seconds=30)
-
 
 @dataclass(frozen=True)
 class TendaData:
@@ -39,6 +37,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
         self,
         hass: HomeAssistant,
         client: Tenda4G09,
+        update_interval: int,
     ) -> None:
         """Initialize coordinator."""
 
@@ -46,7 +45,9 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=SCAN_INTERVAL,
+            update_interval=timedelta(
+                seconds=update_interval
+            ),
         )
 
         self.client = client
