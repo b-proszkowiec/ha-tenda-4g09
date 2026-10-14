@@ -86,6 +86,12 @@
       },
       "band": {
         "name": "Pasmo LTE"
+      },
+      "ul_bandwidth": {
+        "name": "Szerokość pasma UL"
+      },
+      "dl_bandwidth": {
+        "name": "Szerokość pasma DL"
       }
     },
     "binary_sensor": {

@@ -80,6 +80,12 @@
       },
       "band": {
         "name": "LTE Band"
+      },
+      "ul_bandwidth": {
+        "name": "Uplink Bandwidth"
+      },
+      "dl_bandwidth": {
+        "name": "Downlink Bandwidth"
       }
     },
     "binary_sensor": {

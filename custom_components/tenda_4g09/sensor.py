@@ -13,7 +13,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfDataRate, UnitOfInformation, SIGNAL_STRENGTH_DECIBELS, SIGNAL_STRENGTH_DECIBELS_MILLIWATT
+from homeassistant.const import UnitOfDataRate, UnitOfInformation, UnitOfFrequency, SIGNAL_STRENGTH_DECIBELS, SIGNAL_STRENGTH_DECIBELS_MILLIWATT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -175,6 +175,20 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         key="band",
         translation_key="band",
         value_fn=lambda data: get_serving_cell_info(data).band,
+    ),
+    TendaSensorEntityDescription(
+        key="ul_bandwidth",
+        translation_key="ul_bandwidth",
+        device_class=SensorDeviceClass.FREQUENCY,
+        native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
+        value_fn=lambda data: get_serving_cell_info(data).ul_bandwidth,
+    ),
+    TendaSensorEntityDescription(
+        key="dl_bandwidth",
+        translation_key="dl_bandwidth",
+        device_class=SensorDeviceClass.FREQUENCY,
+        native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
+        value_fn=lambda data: get_serving_cell_info(data).dl_bandwidth,
     ),
     TendaSensorEntityDescription(
         key="rsrp",
