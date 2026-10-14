@@ -53,6 +53,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
         self.client = client
         self._last_reconnect: datetime | None = None
         self._reconnect_cooldown = timedelta(minutes=5)
+        self.data = dict()
 
     def _should_reconnect(self) -> bool:
         """Return whether an automatic reconnect should be attempted."""
@@ -88,34 +89,45 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             if not self.client.logged_in:
                 self.client.login()
 
-            router_status: RouterStatus = self.client.get_status()
-            wan_connected: bool = self.client.is_mobile_data_connected(router_status)
+            status: RouterStatus = self.client.get_status()
+            wan_connected: bool = self.client.is_mobile_data_connected(status)
             data_limit: DataLimitSetting = self.client.get_data_limit_setting()
             online_clients: list[OnlineClient] = self.client.get_online_clients()
-            serving_cell_info: LTEServingCell  = self.client.get_telnet_client(self.client.host_ip).get_signal_info()
-
-
-            if not wan_connected and self._should_reconnect():
-                _LOGGER.info(
-                    "LTE connection is inactive, attempting reconnect"
-                )
-                self.client.mobile_data_connect()
-                self._last_reconnect = datetime.now(timezone.utc)
-
-        except Exception as err:
-            _LOGGER.warning(
-                "Error getting data with Tenda 4G09: %s",
-                err,
-            )
+        except Exception:
+            _LOGGER.exception("Error getting data with Tenda 4G09")
             raise
 
-        finally:
-            self.client.logout()
+        previous_data = self.data
+        try:
+            serving_cell_info = (
+                self.client
+                .get_telnet_client(self.client.host_ip)
+                .get_signal_info()
+            )
+        except Exception as err:
+            _LOGGER.warning(
+                "Unable to retrieve serving cell information: %s",
+                err,
+            )
+            serving_cell_info = (
+                previous_data.serving_cell_info
+                if previous_data is not None
+                else None
+            )
+
+        if not wan_connected and self._should_reconnect():
+            _LOGGER.info("LTE connection is inactive, attempting reconnect")
+            try:
+                self.client.mobile_data_connect()
+            except Exception:
+                _LOGGER.exception("Unable to reconnect mobile data")
+            else:
+                self._last_reconnect = datetime.now(timezone.utc)
 
         return TendaData(
-            status=router_status,
-            wan_connected=wan_connected,
+            status=status,
             data_limit=data_limit,
+            wan_connected=wan_connected,
             online_clients=online_clients,
             serving_cell_info=serving_cell_info,
         )
