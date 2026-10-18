@@ -139,56 +139,76 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
     TendaSensorEntityDescription(
         key="rat",
         translation_key="rat",
-        value_fn=lambda data: get_serving_cell_info(data).rat,
+        value_fn=lambda data: (
+            x.rat if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="duplex",
         translation_key="duplex",
-        value_fn=lambda data: get_serving_cell_info(data).duplex,
+        value_fn=lambda data: (
+            x.duplex if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="mcc",
         translation_key="mcc",
-        value_fn=lambda data: get_serving_cell_info(data).mcc,
+        value_fn=lambda data: (
+            x.mcc if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="mnc",
         translation_key="mnc",
-        value_fn=lambda data: get_serving_cell_info(data).mnc,
+        value_fn=lambda data: (
+            x.mnc if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="cell_id",
         translation_key="cell_id",
-        value_fn=lambda data: get_serving_cell_info(data).cell_id,
+        value_fn=lambda data: (
+            x.cell_id if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="pci",
         translation_key="pci",
-        value_fn=lambda data: get_serving_cell_info(data).pci,
+        value_fn=lambda data: (
+            x.pci if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="earfcn",
         name="EARFCN",
-        value_fn=lambda data: get_serving_cell_info(data).earfcn,
+        value_fn=lambda data: (
+            x.earfcn if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="band",
         translation_key="band",
-        value_fn=lambda data: get_serving_cell_info(data).band,
+        value_fn=lambda data: (
+            x.band if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="ul_bandwidth",
         translation_key="ul_bandwidth",
         device_class=SensorDeviceClass.FREQUENCY,
         native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
-        value_fn=lambda data: get_serving_cell_info(data).ul_bandwidth,
+        value_fn=lambda data: (
+            x.ul_bandwidth if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="dl_bandwidth",
         translation_key="dl_bandwidth",
         device_class=SensorDeviceClass.FREQUENCY,
         native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
-        value_fn=lambda data: get_serving_cell_info(data).dl_bandwidth,
+        value_fn=lambda data: (
+            x.dl_bandwidth if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
     TendaSensorEntityDescription(
         key="rsrp",
@@ -196,7 +216,9 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-        value_fn=lambda data: get_serving_cell_info(data).rsrp,
+        value_fn=lambda data: (
+            x.rsrp if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
         TendaSensorEntityDescription(
         key="rsrq",
@@ -204,7 +226,9 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-        value_fn=lambda data: get_serving_cell_info(data).rsrq,
+        value_fn=lambda data: (
+            x.rsrq if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
         TendaSensorEntityDescription(
         key="rssi",
@@ -212,7 +236,9 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-        value_fn=lambda data: get_serving_cell_info(data).rssi,
+        value_fn=lambda data: (
+            x.rssi if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
         TendaSensorEntityDescription(
         key="sinr",
@@ -220,7 +246,9 @@ SENSORS: tuple[TendaSensorEntityDescription, ...] = (
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         state_class=SensorStateClass.MEASUREMENT,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-        value_fn=lambda data: get_serving_cell_info(data).sinr,
+        value_fn=lambda data: (
+            x.sinr if (x := get_serving_cell_info(data)) is not None else None
+        )
     ),
 )
 

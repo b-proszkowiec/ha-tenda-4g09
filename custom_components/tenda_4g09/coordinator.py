@@ -27,7 +27,7 @@ class TendaData:
     data_limit: DataLimitSetting
     wan_connected: bool
     online_clients: list[OnlineClient]
-    serving_cell_info: LTEServingCell
+    serving_cell_info: LTEServingCell | None
 
 
 class TendaCoordinator(DataUpdateCoordinator[TendaData]):
@@ -74,10 +74,6 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
                 self._get_data
             )
         except Exception as err:
-            _LOGGER.warning(
-                "Error communicating with Tenda 4G09: %s",
-                err,
-            )
             raise UpdateFailed(
                 f"Error communicating with Tenda 4G09: {err}"
             ) from err
@@ -93,43 +89,45 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             wan_connected: bool = self.client.is_mobile_data_connected(status)
             data_limit: DataLimitSetting = self.client.get_data_limit_setting()
             online_clients: list[OnlineClient] = self.client.get_online_clients()
+
+            if self.client.telnet_available:
+                previous_data = self.data
+                try:
+                    serving_cell_info = (
+                        self.client
+                        .get_telnet_client(self.client.host_ip)
+                        .get_signal_info()
+                    )
+                except Exception as err:
+                    _LOGGER.warning(
+                        "Unable to retrieve serving cell information: %s",
+                        err,
+                    )
+                    serving_cell_info = (
+                        previous_data.serving_cell_info
+                        if previous_data is not None
+                        else None
+                    )
+
+            if not wan_connected and self._should_reconnect():
+                _LOGGER.warning("LTE connection is inactive, attempting reconnect")
+                try:
+                    self.client.mobile_data_connect()
+                except Exception:
+                    _LOGGER.exception("Unable to reconnect mobile data")
+                else:
+                    self._last_reconnect = datetime.now(timezone.utc)
+
         except Exception:
             _LOGGER.exception("Error getting data with Tenda 4G09")
             raise
-
-        previous_data = self.data
-        try:
-            serving_cell_info = (
-                self.client
-                .get_telnet_client(self.client.host_ip)
-                .get_signal_info()
-            )
-        except Exception as err:
-            _LOGGER.warning(
-                "Unable to retrieve serving cell information: %s",
-                err,
-            )
-            serving_cell_info = (
-                previous_data.serving_cell_info
-                if previous_data is not None
-                else None
-            )
-
-        if not wan_connected and self._should_reconnect():
-            _LOGGER.info("LTE connection is inactive, attempting reconnect")
-            try:
-                self.client.mobile_data_connect()
-            except Exception:
-                _LOGGER.exception("Unable to reconnect mobile data")
-            else:
-                self._last_reconnect = datetime.now(timezone.utc)
 
         return TendaData(
             status=status,
             data_limit=data_limit,
             wan_connected=wan_connected,
             online_clients=online_clients,
-            serving_cell_info=serving_cell_info,
+            serving_cell_info=serving_cell_info if self.client.telnet_available else None,
         )
 
     async def async_reconnect(self) -> None:
