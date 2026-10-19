@@ -11,6 +11,7 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
     UpdateFailed,
 )
+import homeassistant.util.dt as dt_util
 
 from tenda_4g09 import *
 
@@ -45,38 +46,26 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(
-                seconds=update_interval
-            ),
+            update_interval=timedelta(seconds=update_interval),
         )
 
         self.client = client
         self._last_reconnect: datetime | None = None
         self._reconnect_cooldown = timedelta(minutes=5)
-        self.data = dict()
 
     def _should_reconnect(self) -> bool:
         """Return whether an automatic reconnect should be attempted."""
-
         if self._last_reconnect is None:
             return True
 
-        return (
-            datetime.now(timezone.utc) - self._last_reconnect
-            >= self._reconnect_cooldown
-        )
+        return (dt_util.utcnow() - self._last_reconnect) >= self._reconnect_cooldown
 
     async def _async_update_data(self) -> TendaData:
         """Fetch data from the router."""
-
         try:
-            return await self.hass.async_add_executor_job(
-                self._get_data
-            )
+            return await self.hass.async_add_executor_job(self._get_data)
         except Exception as err:
-            raise UpdateFailed(
-                f"Error communicating with Tenda 4G09: {err}"
-            ) from err
+            raise UpdateFailed(f"Error communicating with Tenda 4G09: {err}") from err
 
     def _get_data(self) -> TendaData:
         """Fetch all required data synchronously."""
@@ -89,9 +78,9 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             wan_connected: bool = self.client.is_mobile_data_connected(status)
             data_limit: DataLimitSetting = self.client.get_data_limit_setting()
             online_clients: list[OnlineClient] = self.client.get_online_clients()
+            serving_cell_info: LTEServingCell | None = None
 
             if self.client.telnet_available:
-                previous_data = self.data
                 try:
                     serving_cell_info = (
                         self.client
@@ -99,15 +88,10 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
                         .get_signal_info()
                     )
                 except Exception as err:
-                    _LOGGER.warning(
-                        "Unable to retrieve serving cell information: %s",
-                        err,
-                    )
-                    serving_cell_info = (
-                        previous_data.serving_cell_info
-                        if previous_data is not None
-                        else None
-                    )
+                    _LOGGER.warning("Unable to retrieve serving cell information via telnet: %s", err)
+
+                    if self.data and isinstance(self.data, TendaData):
+                        serving_cell_info = self.data.serving_cell_info
 
             if not wan_connected and self._should_reconnect():
                 _LOGGER.warning("LTE connection is inactive, attempting reconnect")
@@ -116,7 +100,7 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
                 except Exception:
                     _LOGGER.exception("Unable to reconnect mobile data")
                 else:
-                    self._last_reconnect = datetime.now(timezone.utc)
+                    self._last_reconnect = dt_util.utcnow()
 
         except Exception:
             _LOGGER.exception("Error getting data with Tenda 4G09")
@@ -127,21 +111,16 @@ class TendaCoordinator(DataUpdateCoordinator[TendaData]):
             data_limit=data_limit,
             wan_connected=wan_connected,
             online_clients=online_clients,
-            serving_cell_info=serving_cell_info if self.client.telnet_available else None,
+            serving_cell_info=serving_cell_info,
         )
 
     async def async_reconnect(self) -> None:
         """Reconnect the LTE/WAN connection."""
 
         try:
-            await self.hass.async_add_executor_job(
-                self._reconnect
-            )
+            await self.hass.async_add_executor_job(self._reconnect)
         except Exception as err:
-            _LOGGER.error(
-                "Failed to reconnect Tenda 4G09 WAN: %s",
-                err,
-            )
+            _LOGGER.error("Failed to reconnect Tenda 4G09 WAN: %s", err)
             raise
 
         await self.async_request_refresh()
